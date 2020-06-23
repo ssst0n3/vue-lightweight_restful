@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Auth></Auth>
+    <Auth baseURL="http://127.0.0.1:8080"></Auth>
 <!--    <img alt="Vue logo" src="./assets/logo.png">-->
 <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>

@@ -14,13 +14,24 @@ const clientV1 = axios.create({
 });
 
 export default {
-    client: axios.create({
+    config: {
         json: true,
-        withCredentials: true
-    }),
-    initClient(baseURL="/") {
-        this.client.baseURL = baseURL
-        console.log(this.client)
+        withCredentials: true,
+    },
+    client: {},
+    initClient(baseURL = "/") {
+        this.config.baseURL = baseURL
+        this.client = axios.create(this.config)
+    },
+    exec(method, path, params, data) {
+        return this.client({
+            url: path, method: method, params: params, data: data
+        }).then(req => {
+            return req.data
+        })
+    },
+    post(path, params, data) {
+        return this.exec('post', path, params, data)
     },
     clientV2: axios.create({
         baseURL: process.env.NODE_ENV === 'development' ? config.baseUrlDev + config.apiV2 : config.baseUrl + config.apiV2,
