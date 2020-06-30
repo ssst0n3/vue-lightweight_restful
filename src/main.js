@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Demo from "@/Demo";
+
 Vue.config.productionTip = false;
 
 import lightweight_restful from "./components/main";

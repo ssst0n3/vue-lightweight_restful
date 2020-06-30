@@ -1,11 +1,13 @@
 <template>
     <div>
+        <span v-if="loggedIn" class="mr-3">welcome {{username}}</span>
         <b-button @click="$bvModal.show('sign-in')" v-if="!loggedIn">login</b-button>
-        <b-button v-if="loggedIn">logout</b-button>
-        <b-modal id="sign-in" @ok="sign_in" title="login" :content-class="theme" :header-close-variant="dark?'light':''">
+        <b-button v-if="loggedIn" @click="logout">logout</b-button>
+        <b-modal id="sign-in" @ok="sign_in" title="login" :content-class="theme"
+                 :header-close-variant="dark?'light':''">
             <div :class="theme">
                 <b-input-group prepend="username" :class="dark?'black':''">
-                    <b-form-input type="text" v-model="model.username" :class="theme"></b-form-input>
+                    <b-form-input autofocus type="text" v-model="model.username" :class="theme"></b-form-input>
                 </b-input-group>
                 <b-input-group prepend="password" :class="'mt-3 '+(dark?'black':'')">
                     <b-form-input type="password" v-model="model.password" :class="theme"></b-form-input>
@@ -17,39 +19,56 @@
 
 <script>
     import Vue from 'vue'
-    import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 
-    Vue.use(BootstrapVue)
-    Vue.use(IconsPlugin)
+    import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+    import VueCookies from 'vue-cookies'
     import api from "@/api/api";
+
+    Vue.use(BootstrapVue)
+    Vue.use(IconsPlugin)
+
+    Vue.use(VueCookies)
 
     export default {
         name: "Auth",
         data: function () {
             return {
-                model: {}
+                model: {},
+                loggedIn: api.loggedIn()
             }
         },
         props: {
-            baseURL: String,
-            authURI: String,
-            loggedIn: Boolean,
+            base_url: String,
+            auth_uri: String,
             dark: Boolean,
+            cookie_expire_time: Number,
         },
         created() {
-            api.initClient(this.baseURL)
+            api.initClient(this.base_url)
         },
         computed: {
+            username: function () {
+                return this.loggedIn ? api.username() : ''
+            },
             theme() {
-                return this.dark? ['shadow', 'bg-dark', 'text-light', 'black']:[]
+                return this.dark ? ['shadow', 'bg-dark', 'text-light', 'black'] : []
             }
         },
         methods: {
             async sign_in() {
-                await api.post(this.authURI, null, this.model)
+                let {token, username, is_admin, user_id} = await api.post(this.auth_uri, null, this.model)
+                this.$cookies.set('token', token, this.cookie_expire_time)
+                this.$cookies.set('username', username, this.cookie_expire_time)
+                this.$cookies.set('is_admin', is_admin, this.cookie_expire_time)
+                this.$cookies.set('user_id', user_id, this.cookie_expire_time)
+                this.loggedIn = api.loggedIn()
+            },
+            logout() {
+                api.logout()
+                this.loggedIn = api.loggedIn()
             }
         }
     }

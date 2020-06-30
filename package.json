@@ -1,6 +1,6 @@
 {
   "name": "vue-lightweight_restful",
-  "version": "0.6.4",
+  "version": "0.7.6",
   "main": "dist/vue-lightweight_restful.umd.js",
   "private": false,
   "scripts": {
@@ -12,7 +12,8 @@
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-cookies": "^1.5.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
