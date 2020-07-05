@@ -6,3 +6,12 @@
 .theme_black .b-form-tags-input {
     color: white;
 }
+
+.theme_black .vue-treeselect__control, .theme_black .vue-treeselect__menu{
+    background-color: #343a40;
+    color: white;
+}
+
+.theme_black .vue-treeselect__option--highlight {
+    background-color: #007bff;
+}

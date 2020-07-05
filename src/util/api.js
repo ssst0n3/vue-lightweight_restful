@@ -25,6 +25,27 @@ export default {
     async post(path, params, data) {
         return this.exec('post', path, params, data)
     },
+    async put(path, params, data) {
+        return this.exec('put', path, params, data)
+    },
+    async delete(path, params) {
+        return this.exec('delete', path, params)
+    },
+    async listResource(path) {
+        return this.get(path)
+    },
+    async createResource(path, data) {
+        return this.post(path, null, data)
+    },
+    async updateResource(path, id, data) {
+        return this.put(path + '/' + id, null, data)
+    },
+    async deleteResource(path, id) {
+        if (confirm('Are you sure you want to delete it?')) {
+            await this.delete(`${path}/${id}`);
+            location.reload()
+        }
+    },
     logout() {
         VueCookies.remove(consts.cookie.token)
         VueCookies.remove(consts.cookie.username)
