@@ -1,15 +1,15 @@
 <template>
-    <div>
+    <div id="auth">
         <span v-if="loggedIn" class="mr-3">welcome {{username}}</span>
         <b-button @click="$bvModal.show('sign-in')" v-if="!loggedIn">login</b-button>
         <b-button v-if="loggedIn" @click="logout">logout</b-button>
         <b-modal id="sign-in" @ok="sign_in" title="login" :content-class="theme"
                  :header-close-variant="dark?'light':''">
             <div :class="theme">
-                <b-input-group prepend="username" :class="dark?'black':''">
+                <b-input-group prepend="username" :class="dark?'theme_black':''">
                     <b-form-input autofocus type="text" v-model="model.username" :class="theme"></b-form-input>
                 </b-input-group>
-                <b-input-group prepend="password" :class="'mt-3 '+(dark?'black':'')">
+                <b-input-group prepend="password" :class="'mt-3 '+(dark?'theme_black':'')">
                     <b-form-input type="password" v-model="model.password" :class="theme"></b-form-input>
                 </b-input-group>
             </div>
@@ -25,7 +25,7 @@
     import 'bootstrap-vue/dist/bootstrap-vue.css'
 
     import VueCookies from 'vue-cookies'
-    import api from "@/api/api";
+    import api from "@/util/api";
 
     Vue.use(BootstrapVue)
     Vue.use(IconsPlugin)
@@ -54,7 +54,7 @@
                 return this.loggedIn ? api.username() : ''
             },
             theme() {
-                return this.dark ? ['shadow', 'bg-dark', 'text-light', 'black'] : []
+                return this.dark ? ['shadow', 'bg-dark', 'text-light', 'theme_black'] : []
             }
         },
         methods: {
@@ -74,11 +74,15 @@
     }
 </script>
 
-<style scoped>
-    /deep/ .black > .input-group-prepend > .input-group-text {
+<style>
+    .theme_black > .input-group-prepend > .input-group-text {
         background-color: #343a40;
         color: white;
         /*background: rgba(255, 255, 255, 0.6) !important;*/
         /*box-shadow: 0 40px 120px -2px rgba(27, 33, 58, 1);*/
     }
+
+</style>
+<style scoped>
+
 </style>

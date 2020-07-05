@@ -1,6 +1,6 @@
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
-import consts from "@/api/consts";
+import consts from "@/util/consts";
 
 export default {
     config: {
@@ -18,6 +18,9 @@ export default {
         }).then(req => {
             return req.data
         })
+    },
+    async get(path, params) {
+        return this.exec('get', path, params)
     },
     async post(path, params, data) {
         return this.exec('post', path, params, data)

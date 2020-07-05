@@ -1,0 +1,8 @@
+.theme_black > .input-group-prepend > .input-group-text {
+    background-color: #343a40;
+    color: white;
+}
+
+.theme_black .b-form-tags-input {
+    color: white;
+}
