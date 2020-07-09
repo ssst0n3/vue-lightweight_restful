@@ -1,17 +1,49 @@
-.theme_black > .input-group-prepend > .input-group-text {
+/*
+bootstrap-vue b-input-group
+*/
+.theme_black.input-group > .input-group-prepend > .input-group-text {
     background-color: #343a40;
     color: white;
 }
 
-.theme_black .b-form-tags-input {
+/*
+bootstrap-vue b-form-tags
+*/
+.theme_black.b-form-tags .b-form-tags-input {
     color: white;
 }
 
-.theme_black .vue-treeselect__control, .theme_black .vue-treeselect__menu{
+/*
+bootstrap-vue b-form-datepicker
+*/
+.theme_black.b-form-datepicker label {
+    color: white !important;
+}
+
+.theme_black.b-form-datepicker .b-calendar-grid-caption,
+.theme_black.b-form-datepicker .b-calendar-grid {
+    background-color: #343a40 !important;
+    color: white !important;
+}
+
+/*
+vue-treeselect
+*/
+.theme_black.vue-treeselect .vue-treeselect__control, .theme_black .vue-treeselect__menu {
     background-color: #343a40;
     color: white;
 }
 
-.theme_black .vue-treeselect__option--highlight {
+.theme_black.vue-treeselect .vue-treeselect__option--highlight {
     background-color: #007bff;
+}
+
+.theme_black.vue-treeselect .vue-treeselect__control-arrow path,
+.theme_black.vue-treeselect .vue-treeselect__option-arrow path {
+    fill: white !important;
+    opacity: 1;
+}
+
+.theme_black.vue-treeselect .vue-treeselect__single-value {
+    color: white !important;
 }
