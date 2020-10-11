@@ -12,30 +12,55 @@ export default {
         this.config.baseURL = baseURL
         this.client = axios.create(this.config)
     },
-    async exec(method, path, params, data) {
+    async exec(method, path, params, data, caller) {
         return this.client({
             url: path, method: method, params: params, data: data
         }).then(req => {
+            if (caller) {
+                console.log("msg:", req.data.msg)
+                if (req.data.msg) {
+                    caller.$bvToast.toast(req.data.msg, {
+                        title: path,
+                        variant: 'success',
+                        solid: true
+                    })
+                }
+            }
             return req.data
+        }).catch(function (error) {
+            if (error.response) {
+                if (error.response.data) {
+                    if (caller) {
+                        caller.$bvToast.toast(error.response.data.reason, {
+                            title: path,
+                            variant: 'danger',
+                            solid: true
+                        })
+                    }
+                    return error.response.data
+                }
+                return error.response
+            }
+            return error
         })
     },
-    async get(path, params) {
-        return this.exec('get', path, params)
+    async get(path, params, caller) {
+        return this.exec('get', path, params, caller)
     },
-    async post(path, params, data) {
-        return this.exec('post', path, params, data)
+    async post(path, params, data, caller) {
+        return this.exec('post', path, params, data, caller)
     },
-    async put(path, params, data) {
-        return this.exec('put', path, params, data)
+    async put(path, params, data, caller) {
+        return this.exec('put', path, params, data, caller)
     },
-    async delete(path, params) {
-        return this.exec('delete', path, params)
+    async delete(path, params, caller) {
+        return this.exec('delete', path, params, caller)
     },
-    async listResource(path) {
-        return this.get(path)
+    async listResource(path, caller) {
+        return this.get(path, null, caller)
     },
-    async createResource(path, data) {
-        return this.post(path, null, data)
+    async createResource(path, data, caller) {
+        return this.post(path, null, data, caller)
     },
     async updateResource(path, id, data) {
         return this.put(path + '/' + id, null, data)
