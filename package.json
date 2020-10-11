@@ -1,6 +1,6 @@
 {
   "name": "vue-lightweight_restful",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "main": "dist/vue-lightweight_restful.umd.js",
   "private": false,
   "scripts": {

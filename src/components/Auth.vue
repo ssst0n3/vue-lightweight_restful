@@ -1,8 +1,10 @@
 <template>
   <div id="auth">
-    <span v-if="loggedIn" class="mr-3">welcome {{ username }}</span>
-    <b-button @click="$bvModal.show('sign')" v-if="!loggedIn">sign</b-button>
-    <b-button v-if="loggedIn" @click="logout">logout</b-button>
+    <span v-if="loggedIn" :class="welcome_class">welcome {{ username }}</span>
+    <span class="ml-3">
+      <b-button :size="button_size" @click="$bvModal.show('sign')" v-if="!loggedIn">sign</b-button>
+      <b-button :size="button_size" v-if="loggedIn" @click="logout">logout</b-button>
+    </span>
     <b-modal id="sign" @ok="sign_in" @cancel="register" title="sign" :content-class="theme"
              cancel-variant="primary" cancel-title="register" ok-title="login"
              :header-close-variant="dark?'light':''">
@@ -52,6 +54,10 @@ export default {
     },
     dark: Boolean,
     cookie_expire_time: Number,
+    welcome_class: String,
+    button_size: String,
+    after_sign_in: Function,
+    after_sign_out: Function
   },
   created() {
     api.initClient(this.base_url)
@@ -72,6 +78,9 @@ export default {
       this.$cookies.set('is_admin', is_admin, this.cookie_expire_time)
       this.$cookies.set('user_id', user_id, this.cookie_expire_time)
       this.loggedIn = api.loggedIn()
+      if (this.after_sign_in) {
+        this.after_sign_in()
+      }
     },
     async register() {
       // TODO
@@ -80,6 +89,9 @@ export default {
     logout() {
       api.logout()
       this.loggedIn = api.loggedIn()
+      if (this.after_sign_out) {
+        this.after_sign_out()
+      }
     }
   }
 }
