@@ -16,6 +16,7 @@ const install = function (Vue) {
     // components.forEach(c => {
     //     Vue.component(c.name, c);
     // })
+    Vue.prototype.$rest_api = api
     Vue.component(Auth.name, Auth)
     Vue.component(ErrorAlert.name, ErrorAlert)
 }

@@ -1,9 +1,10 @@
 <template>
     <div id="auth">
         <span v-if="loggedIn" class="mr-3">welcome {{username}}</span>
-        <b-button @click="$bvModal.show('sign-in')" v-if="!loggedIn">login</b-button>
+        <b-button @click="$bvModal.show('sign')" v-if="!loggedIn">sign</b-button>
         <b-button v-if="loggedIn" @click="logout">logout</b-button>
-        <b-modal id="sign-in" @ok="sign_in" title="login" :content-class="theme"
+        <b-modal id="sign" @ok="sign_in" @cancel="register" title="sign" :content-class="theme"
+                 cancel-variant="primary" cancel-title="register" ok-title="login"
                  :header-close-variant="dark?'light':''">
             <div :class="theme">
                 <b-input-group prepend="username" :class="dark?'theme_black':''">
@@ -65,6 +66,10 @@
                 this.$cookies.set('is_admin', is_admin, this.cookie_expire_time)
                 this.$cookies.set('user_id', user_id, this.cookie_expire_time)
                 this.loggedIn = api.loggedIn()
+            },
+            async register() {
+              // TODO
+              alert('register todo')
             },
             logout() {
                 api.logout()
