@@ -27,7 +27,7 @@ export default {
             url: path, method: method, params: params, data: data
         }).then(req => {
             if (toast_options && toast_options.caller) {
-                let msg = req.data.msg ? req.data.msg + toast_options.success_msg : toast_options.success_msg
+                let msg = req.data.msg ? `${req.data.msg} ${toast_options.success_msg}` : toast_options.success_msg
                 console.log("msg:", msg)
                 toast_options.caller.$bvToast.toast(msg, {
                     title: path,
@@ -39,7 +39,7 @@ export default {
         }).catch(function (error) {
             let ret = error.response ? (error.response.data ? error.response.data : error.response) : error
             if (toast_options.caller) {
-                let msg = error.response ? (error.response.data ? error.response.data.reason : "") + toast_options.error_msg : toast_options.error_msg
+                let msg = error.response ? `${error.response.data ? error.response.data.reason : ""} ${toast_options.error_msg}` : toast_options.error_msg
                 console.log("msg:", msg)
                 toast_options.caller.$bvToast.toast(msg, {
                     title: path,
