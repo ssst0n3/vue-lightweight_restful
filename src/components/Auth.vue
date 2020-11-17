@@ -1,10 +1,16 @@
 <template>
   <div id="auth">
-    <span v-if="loggedIn" :class="welcome_class">welcome {{ username }}</span>
-    <span class="ml-3">
-      <b-button :size="button_size" @click="$bvModal.show('sign')" v-if="!loggedIn">sign</b-button>
-      <b-button :size="button_size" v-if="loggedIn" @click="logout">logout</b-button>
-    </span>
+    <div class="container">
+      <b-row>
+        <b-col>
+          <span v-if="loggedIn" :class="welcome_class">welcome {{ username }}</span>
+        </b-col>
+        <span class="ml-3">
+          <b-button :size="button_size" @click="$bvModal.show('sign')" v-show="!loggedIn">sign</b-button>
+          <b-button :size="button_size" v-show="loggedIn" @click="logout">logout</b-button>
+        </span>
+      </b-row>
+    </div>
     <b-modal id="sign" @ok="sign_in" @cancel="register" title="sign" :content-class="theme"
              cancel-variant="primary" cancel-title="register" ok-title="login"
              :header-close-variant="dark?'light':''">
@@ -60,6 +66,7 @@ export default {
     after_sign_out: Function
   },
   created() {
+    console.log("loggedIn:", this.loggedIn)
     api.initClient(this.base_url)
   },
   computed: {

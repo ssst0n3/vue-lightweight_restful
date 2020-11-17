@@ -84,6 +84,7 @@ export default {
         VueCookies.remove(consts.cookie.user_id)
     },
     loggedIn() {
+        console.log("token exists:", VueCookies.isKey(consts.cookie.token))
         return VueCookies.isKey(consts.cookie.token)
     },
     username() {
