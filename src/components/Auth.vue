@@ -11,7 +11,7 @@
         </span>
       </b-row>
     </div>
-    <b-modal id="sign" @ok="sign_in" @cancel="register" title="sign" :content-class="theme"
+    <b-modal id="sign" @ok="sign_in" @cancel="register" :title="title===undefined ? 'sign': title" :content-class="theme"
              cancel-variant="primary" cancel-title="register" ok-title="login"
              :header-close-variant="dark?'light':''">
       <div :class="theme">
@@ -50,6 +50,7 @@ export default {
     }
   },
   props: {
+    title: String,
     base_url: {
       type: String,
       required: true
