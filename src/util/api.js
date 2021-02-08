@@ -8,8 +8,9 @@ export default {
         withCredentials: true,
     },
     client: {},
-    initClient(baseURL = "/") {
+    initClient(baseURL = "/", withCredentials=true) {
         this.config.baseURL = baseURL
+        this.config.withCredentials = withCredentials
         this.client = axios.create(this.config)
     },
     async exec(method, path, params, data, toast_options) {
