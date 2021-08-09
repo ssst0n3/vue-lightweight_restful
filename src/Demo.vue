@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Auth base_url="https://127.0.0.1:9101" :dark="true" auth_uri="/api/v1/auth"></Auth>
+        <Auth base_url="http://127.0.0.1:8001" :dark="true" auth_uri="/api/v1/auth"></Auth>
         <!--    <img alt="Vue logo" src="./assets/logo.png">-->
         <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
         <div class="col">

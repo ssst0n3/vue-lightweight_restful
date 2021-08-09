@@ -11,7 +11,8 @@
         </span>
       </b-row>
     </div>
-    <b-modal id="sign" @ok="sign_in" @cancel="register" :title="title===undefined ? 'sign': title" :content-class="theme"
+    <b-modal id="sign" @ok="sign_in" @cancel="register" :title="title===undefined ? 'sign': title"
+             :content-class="theme"
              cancel-variant="primary" cancel-title="register" ok-title="login"
              :header-close-variant="dark?'light':''">
       <div :class="theme">
@@ -80,7 +81,11 @@ export default {
   },
   methods: {
     async sign_in() {
-      let {token, username, is_admin, user_id} = await api.post(this.auth_uri, null, this.model, this)
+      let {token, username, is_admin, user_id} = await api.post(this.auth_uri, null, this.model, {
+        caller: this,
+        success_msg: 'login successfully',
+        error_msg: 'login failed',
+      })
       this.$cookies.set('token', token, this.cookie_expire_time)
       this.$cookies.set('username', username, this.cookie_expire_time)
       this.$cookies.set('is_admin', is_admin, this.cookie_expire_time)
